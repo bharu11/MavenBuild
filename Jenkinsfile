@@ -1,4 +1,5 @@
 node('') {
+	def sonarScanner = tool name: 'sonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 	stage ('checkout code'){
 		checkout scm
 	}
@@ -12,6 +13,9 @@ node('') {
 	}
 
 	stage ('Sonar Analysis'){
+		withSonarQubeEnv(credentialsId: 'SonarQubeToken') {
+			sh "${sonarScanner}/bin/sonar-scanner"
+}
 		//sh 'mvn sonar:sonar -Dsonar.host.url=http://35.153.67.119:9000 -Dsonar.login=77467cfd2653653ad3b35463fbfdb09285f08be5'
 	}
 
