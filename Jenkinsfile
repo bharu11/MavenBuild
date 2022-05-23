@@ -1,5 +1,5 @@
 node('') {
-	def sonarScanner = tool name: 'SonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+	def sonarScanner = tool name: 'sonarScanner', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
 	stage ('checkout code'){
 		checkout scm
 	}
