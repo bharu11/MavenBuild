@@ -14,24 +14,12 @@ node('') {
 
 	stage ('Sonar Analysis'){
 		withSonarQubeEnv(credentialsId: 'SonarQubeToken') {
-			sh "${sonarScanner}/bin/sonar-scanner"
+			
 }
-		//sh 'mvn sonar:sonar -Dsonar.host.url=http://35.153.67.119:9000 -Dsonar.login=77467cfd2653653ad3b35463fbfdb09285f08be5'
+		sh 'mvn sonar:sonar -Dsonar.host.url=http://3.86.225.3:9000/ -Dsonar.login=admin -Dsonar.password=password'
 	}
 
-	stage ('Archive Artifacts'){
-		archiveArtifacts artifacts: 'target/*.war'
-	}
-	
 	stage ('Deployment'){
-		ansiblePlaybook colorized: true, disableHostKeyChecking: true, playbook: 'deploy.yml'
-	}
-	
-	stage ('Notification'){
-		emailext (
-		      subject: "Job Completed",
-		      body: "Jenkins Pipeline Job for Maven Build got completed !!!",
-		      to: "build-alerts@example.com"
-		    )
+		//ansiblePlaybook colorized: true, disableHostKeyChecking: true, playbook: 'deploy.yml'
 	}
 }
